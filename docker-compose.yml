@@ -1,4 +1,4 @@
-version: '2'  
+version: '3'  
 services:  
   herbology:
     image: continuumio/anaconda3
@@ -10,4 +10,4 @@ services:
       - ./:/src
     ports:
       - "5006:5006"
-    command: sh ./src/init.sh
+    command: sh src/init.sh

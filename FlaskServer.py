@@ -2,12 +2,13 @@ import os
 import time
 import numpy as np
 import tensorflow as tf
+import tensorflow.compat.v1 as tf
 from datetime import timedelta
 from tensorflow.python import gfile
 from werkzeug.utils import secure_filename
 from flask import Flask, render_template, request, jsonify
 import base64
-
+tf.disable_v2_behavior()
 ############################################################################
 dir = r'./static/images/'
 model_dir = r'./ChineseHerbalMedicine/model/tensorflow_inception_graph.pb'

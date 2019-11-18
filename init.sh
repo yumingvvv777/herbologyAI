@@ -7,8 +7,8 @@ apt-get update && apt-get install -y --no-install-recommends \
         git \
         wget \
         curl \
-        python-dev \
-        python-pip \
+        # python-dev \
+        # python-pip \
         vim
 
 
@@ -25,7 +25,7 @@ curl -so /miniconda.sh https://repo.continuum.io/miniconda/Miniconda3-latest-Lin
 && rm /miniconda.sh
 
 
-echo "PATH=/miniconda/bin:$PATH" >> /etc/profile
+# echo "PATH=/miniconda/bin:$PATH" >> /etc/profile
 
 # . /etc/profile
 
@@ -50,13 +50,13 @@ echo "############ 通过conda安装python模块 ############"
 
 
 # conda env export > environment.yaml
-conda env create -f environment.yaml
+# conda env create -f environment.yaml
 
 
 
 
 # 启动docker入口文件docker-compose -f docker-compose.yml up
-# 停止容器docker-compose -f docker-compose.yml stop
+# 停止容器docker-compose -f docker-compo/	se.yml stop
 # 进入容器docker exec -it faceLogin /bin/bash
 # 或者docker exec -it faceLogin /bin/sh
 # 保存容器里的改动: docker commit c9de3957530c aisrc:v1
