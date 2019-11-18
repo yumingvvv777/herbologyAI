@@ -1,0 +1,13 @@
+version: '2'  
+services:  
+  herbology:
+    image: continuumio/anaconda3
+    container_name: herbology
+    restart: always
+    environment:
+      USER: root
+    volumes:
+      - ./:/src
+    ports:
+      - "5006:5006"
+    command: sh ./src/init.sh
