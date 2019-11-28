@@ -8,6 +8,10 @@ from tensorflow.python import gfile
 from werkzeug.utils import secure_filename
 from flask import Flask, render_template, request, jsonify
 import base64
+from flask_cors import CORS, cross_origin
+from six.moves import urllib
+from urllib import parse
+import re
 tf.disable_v2_behavior()
 ############################################################################
 dir = r'./static/images/'
@@ -69,11 +73,14 @@ def labels_class(data_dir):
 ############################################################################
 
 app = Flask(__name__)
+cors = CORS(app)
 app.config['JSON_AS_ASCII'] = False
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 
 # 输出
 @app.route('/')
+@cross_origin()
 def hello_world():
     return render_template('index.html')
 
@@ -91,6 +98,7 @@ app.send_file_max_age_default = timedelta(seconds=1)
 
 
 @app.route('/api/upload', methods=['POST'])
+@cross_origin()
 def upload():
     """
     api:http://127.0.0.1:5000/api/upload
@@ -125,22 +133,41 @@ def upload():
         class_name = labels_data[label[0]]
         toc = time.time()
         print('all,used{:.5}s'.format(toc - tic))
+        bbb = ['about:blank']
+        
         ################################################################################
-        if probability >= 0.7:
-            user = {'accuracy': str(probability), 'is_object': 1, 'class_name': class_name}
+        if probability >= 0.5:
+            try:
+              print(parse.quote(class_name))
+              print('http://www.baike.com/wiki/'+ parse.quote(class_name) +'&prd=button_doc_entry')
+              searchResult = urllib.request.urlopen('http://www.baike.com/wiki/'+ parse.quote(class_name) +'&prd=button_doc_entry')
+              
+              aaa = re.compile(r'doc-img[\s\S]*?<img.*?src="([^\"]+)"', re.DOTALL)
+              s = searchResult.read()
+              ss = str(s, encoding = "utf-8")
+              # print(ss)
+              bbb = aaa.findall(ss)
+              print(bbb)
+              if len(bbb) == 0:
+                    bbb = ['about:blank']
+            except IOError:
+              print("Error: search")
+            user = {'accuracy': str(probability), 'is_object': 1, 'class_name': class_name, 'imgurl': bbb[0]}
         else:
-            user = {'accuracy': str(probability), 'is_object': 0, 'class_name': class_name}
+            user = {'accuracy': str(probability), 'is_object': 0, 'class_name': class_name, 'imgurl': 'about:blank'}
         return jsonify(user)
     # 重新返回上传界面
     return render_template('index.html')
 
 
 @app.route('/cap', methods=['GET'])
+@cross_origin()
 def hello_cap():
     return render_template('capture.html')
 
 
 @app.route('/api/capture', methods=['POST'])
+@cross_origin()
 def capture():
     """
     api:http://127.0.0.1:5000/api/capture
@@ -173,4 +200,4 @@ def capture():
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5006)
+    app.run(host="0.0.0.0", port=5007)
