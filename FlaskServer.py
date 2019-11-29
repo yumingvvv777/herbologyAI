@@ -139,6 +139,7 @@ def upload():
         if probability >= 0.5:
             try:
               print(parse.quote(class_name))
+              #//https://image.baidu.com/search/index?tn=baiduimage&ipn=r&ct=201326592&cl=2&lm=-1&st=-1&fm=index&fr=&hs=0&xthttps=111111&sf=1&fmq=&pv=&ic=0&nc=1&z=&se=1&showtab=0&fb=0&width=&height=&face=0&istype=2&ie=utf-8&word=%E9%AB%98%E4%B8%BD%E5%8F%82&oq=%E9%AB%98%E4%B8%BD%E5%8F%82&rsp=-1
               print('http://www.baike.com/wiki/'+ parse.quote(class_name) +'&prd=button_doc_entry')
               searchResult = urllib.request.urlopen('http://www.baike.com/wiki/'+ parse.quote(class_name) +'&prd=button_doc_entry')
               
