@@ -10,7 +10,7 @@ Click==7.0
 clyent==1.2.2
 conda==4.7.12
 conda-package-handling==1.6.0
-cryptography==2.8
+cryptography==3.2
 decorator==4.4.1
 Flask==1.1.1
 gast==0.2.2
