@@ -33,7 +33,7 @@ mkl-random==1.1.0
 mkl-service==2.3.0
 more-itertools==7.2.0
 nbformat==4.4.0
-numpy==1.17.3
+numpy==1.22.0
 opt-einsum==3.1.0
 protobuf==3.9.2
 pycosat==0.6.3
